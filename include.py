@@ -1,4 +1,4 @@
-from typing import Optional, List, Dict
+from typing import Optional, List
 from abc import ABC, abstractmethod
 
 
@@ -36,6 +36,7 @@ class ListServer(Server):
 
     def get_entries(self, n_letters:  int) -> List[Product]:
         products_unsorted = []
+        products_sorted = []
         numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         literki = []
         suma = 0
@@ -67,35 +68,34 @@ class ListServer(Server):
         return products_unsorted
 
 
-class MapServer(Server):
-    products_: List[Product]
-    products_dict: Dict
 
-    def _init__(self, products_dict, products: List[Product]):
-        for i in products_:
-            products_dict[i.name] = i
-
-    def wypisz(self, products_dict):
-        for k, v in products_dict.items():
-            print("{k} : {v}\n".format(k=k, v=v))
-
-    def get_entries(self, n_letters):
-        returned = []
-        for i, j in products_dict.items():
-            if returned.len() < n_letters:
-                returned.apppend([i, j])
-        return returned
+# class MapServer(Server):
+#     products_: List[Product]
+#     products_dict: Dict
+    #
+    # def _init__(self, products_dict, products: List[Product]):
+    #     for i in products_:
+    #         products_dict[i.name] = i
+    #
+    # def wypisz(self, products_dict):
+    #     for k, v in products_dict.items():
+    #         print("{k} : {v}\n".format(k=k, v=v))
+    #
+    # def get_entries(self, n_letters):
+    #     returned = []
+    #     for i, j in products_dict.items():
+    #         if returned.len() < n_letters:
+    #             returned.apppend([i, j])
+    #     return returned
 
 
 class Client(object):
-    n: int
-    pomoc:  ListServer
 
     def __init__(self, pomoc_: ListServer):
         self.pomoc = pomoc_
 
     def get_total_price(self, n: int) -> Optional[float]:
-        pomocna_lista = pomoc.get_entries(self.pomoc, n)
+        pomocna_lista = self.pomoc.get_entries(n)
         suma = 0
         for elem in pomocna_lista:
             suma += elem.price
@@ -111,3 +111,4 @@ print('ogolna cena : {}\n'.format(x))
 for i in lst:
 
     print(' {i} '.format(i=i.name))
+
