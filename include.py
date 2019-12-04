@@ -69,25 +69,48 @@ class ListServer(Server):
 
 
 
-# class MapServer(Server):
-#     products_: List[Product]
-#     products_dict: Dict
-    #
-    # def _init__(self, products_dict, products: List[Product]):
-    #     for i in products_:
-    #         products_dict[i.name] = i
-    #
-    # def wypisz(self, products_dict):
-    #     for k, v in products_dict.items():
-    #         print("{k} : {v}\n".format(k=k, v=v))
-    #
-    # def get_entries(self, n_letters):
-    #     returned = []
-    #     for i, j in products_dict.items():
-    #         if returned.len() < n_letters:
-    #             returned.apppend([i, j])
-    #     return returned
+class MapServer(Server):
 
+    products1: Dict
+    
+    def __init__(self, product_: List[Product]):
+        pom_product = {}
+        for e in product_:
+            pom_product[e.name] = e
+        self.products1 = pom_product
+
+    def get_entries(self, n_letters: int):
+        sort1 = []
+        pom = []
+        sort_1 = []
+        s = 0
+        numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        for i in self.products1.keys():
+            if len(i) >= n_letters:
+                for k in list(i):
+                    if k not in numbers:
+                        pom.append(k)
+                    else:
+                        s += 1
+                if len(pom) == n_letters and 1 < s < 4:
+                    sort1.append(i)
+                    sort_1.append((self.products1[i]).price)
+            s = 0
+            pom = []
+
+        n = len(sort1)
+        x: int = 0
+        while n > 1:
+            h = 0
+            for i in range(1, n):
+                x = x + 1
+                if sort1[i - 1].price > sort1[i].price:
+                    sort1[i - 1], sort1[i] = sort1[i], sort1[i - 1]
+                    h = 1
+            n = n - 1
+            if not h == 1:
+                break
+        return sort1
 
 class Client(object):
 
