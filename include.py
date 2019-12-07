@@ -24,8 +24,7 @@ class Server(ABC):
     n_letters: int
     @abstractmethod
     def get_entries(self, n_letters):
-        if self.n_max_returned_entries < self.n_letters:
-            raise TooManyProductsFoundError
+        pass
 
 
 class ListServer(Server):
@@ -41,6 +40,8 @@ class ListServer(Server):
         numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         literki = []
         suma = 0
+        if self.n_max_returned_entries < self.n_letters:
+            raise TooManyProductsFoundError
         for i in products:
             nazwa = list(i.name)
             if len(nazwa) >= n_letters:
@@ -86,6 +87,8 @@ class MapServer(Server):
         sort_1 = []
         s = 0
         numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        if self.n_max_returned_entries < self.n_letters:
+            raise TooManyProductsFoundError
         for i in self.products1.keys():
             if len(i) >= n_letters:
                 for k in list(i):
