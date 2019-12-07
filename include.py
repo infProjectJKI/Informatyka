@@ -12,7 +12,7 @@ class Product:
         self.price = price_
 
 
-class TooManyProductsFoundError:
+class TooManyProductsFoundError(Exception):
 
     pass
 
@@ -24,7 +24,8 @@ class Server(ABC):
     n_letters: int
     @abstractmethod
     def get_entries(self, n_letters):
-        pass
+        if self.n_max_returned_entries < self.n_letters:
+            raise TooManyProductsFoundError
 
 
 class ListServer(Server):
