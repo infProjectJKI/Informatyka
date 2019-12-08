@@ -123,7 +123,7 @@ class Client(object):
         pomocna_lista = self.pomoc.get_entries(n)
         if len(pomocna_lista) > Server.n_max_returned_entries:
             raise TooManyProductsFoundError('Too many products.')
-        if len(pomocna_lista) is None:
+        if len(pomocna_lista) == []:
             raise TooManyProductsFoundError('No product found')
         suma = 0
         for elem in pomocna_lista:
