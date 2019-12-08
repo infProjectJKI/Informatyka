@@ -49,7 +49,7 @@ class ListServer(Server):
                         suma += 1
                 if len(literki) == n_letters and 1 < suma < 4:
                     products_unsorted.append(i)
-                    if self.n_max_returned_entries < len(products_unsorted):
+                    if self.n_max_returned_entries < len(products_unsorted) or not len(products_unsorted):
                         raise TooManyProductsFoundError
             literki = []
             suma = 0
@@ -94,7 +94,7 @@ class MapServer(Server):
                 if len(pom) == n_letters and 1 < s < 4:
                     sort1.append(self.products1[i])
                     sort_1.append((self.products1[i]).price)
-                    if self.n_max_returned_entries < len(sort1):
+                    if self.n_max_returned_entries < len(sort1) or not len(sort1):
                         raise TooManyProductsFoundError
             s = 0
             pom = []
@@ -121,6 +121,8 @@ class Client(object):
 
     def get_total_price(self, n: int) -> Optional[float]:
         pomocna_lista = self.pomoc.get_entries(n)
+        if len(pomocna_lista) > Server.n_max_returned_entries or len(pomocna_lista) is None:
+            raise TooManyProductsFoundError
         suma = 0
         for elem in pomocna_lista:
             suma += elem.price
