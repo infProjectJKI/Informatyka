@@ -49,8 +49,8 @@ class ListServer(Server):
                         suma += 1
                 if len(literki) == n_letters and 1 < suma < 4:
                     products_unsorted.append(i)
-                    if self.n_max_returned_entries < len(products_unsorted) or not len(products_unsorted):
-                        raise TooManyProductsFoundError
+                    if self.n_max_returned_entries < len(products_unsorted):
+                        raise TooManyProductsFoundError('Too many products.')
             literki = []
             suma = 0
 
@@ -94,8 +94,8 @@ class MapServer(Server):
                 if len(pom) == n_letters and 1 < s < 4:
                     sort1.append(self.products1[i])
                     sort_1.append((self.products1[i]).price)
-                    if self.n_max_returned_entries < len(sort1) or not len(sort1):
-                        raise TooManyProductsFoundError
+                    if self.n_max_returned_entries < len(sort1):
+                        raise TooManyProductsFoundError('Too many products.')
             s = 0
             pom = []
 
@@ -121,28 +121,12 @@ class Client(object):
 
     def get_total_price(self, n: int) -> Optional[float]:
         pomocna_lista = self.pomoc.get_entries(n)
-        if len(pomocna_lista) > Server.n_max_returned_entries or len(pomocna_lista) is None:
-            raise TooManyProductsFoundError
+        if len(pomocna_lista) > Server.n_max_returned_entries:
+            raise TooManyProductsFoundError('Too many products.')
+        if len(pomocna_lista) is None:
+            raise TooManyProductsFoundError('No product found')
         suma = 0
         for elem in pomocna_lista:
             suma += elem.price
         return suma
 
-
-products = [Product('P12', 1), Product('PP234', 2), Product('PP29', 1), Product('PP2809', 1), Product('PP7009', 1)]
-server = MapServer(products)
-lst = server.get_entries(2)
-client = Client(server)
-x = client.get_total_price(2)
-print('ogolna cena : {}\n'.format(x))
-for i in lst:
-    print(' {i} '.format(i=i.name))
-
-products = [Product('P12', 1), Product('PP234', 2), Product('PP29', 1), Product('PP2809', 1), Product('PP7009', 1)]
-server = ListServer(products)
-lst = server.get_entries(2)
-client = Client(server)
-x = client.get_total_price(2)
-print('ogolna cena : {}\n'.format(x))
-for i in lst:
-    print(' {i} '.format(i=i.name))
