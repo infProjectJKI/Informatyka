@@ -47,9 +47,6 @@ class ListServer(Server):
                         raise TooManyProductsFoundError()
             literki = []
             suma = 0
-        if len(products_unsorted) == 0:
-            products_unsorted = []
-            return products_unsorted
         products_sorted = sorted(products_unsorted, key=lambda products: products.price)
         return products_sorted
 
@@ -80,9 +77,6 @@ class MapServer(Server):
                         raise TooManyProductsFoundError()
             s = 0
             pom = []
-        if len(sort1) == 0:
-            sort1 = []
-            return sort1
         sort1 = sorted(sort1, key=lambda products: products.price)
         return sort1
 
