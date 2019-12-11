@@ -124,3 +124,25 @@ class Client(object):
             for elem in server_pom:
                 total_sum += elem.price
             return total_sum
+
+products = [Product('P12', 1), Product('PP230', 2), Product('PP209', 1), Product('PP289', 1), Product('PP709', 1)]
+server = MapServer(products)
+for i, j in server.products.items():
+    print('{i} : {j}'.format(i=i, j=j))
+lst = server.get_entries(2)
+client = Client(server)
+x = client.get_total_price(2)
+print('ogolna cena : {}\n'.format(x))
+for i in lst:
+    print(' {i} '.format(i=i.name))
+
+products1 = [Product('P12', 1), Product('PP234', 2), Product('PP29', 3)]
+server1 = ListServer(products1)
+for i in server1.products:
+    print('{i} '.format(i=i))
+lst = server1.get_entries(2)
+client1 = Client(server1)
+x1 = client1.get_total_price(2)
+print('ogolna cena : {}\n'.format(x1))
+for i in lst:
+    print(' {i} '.format(i=i.name))
