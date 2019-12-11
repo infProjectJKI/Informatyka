@@ -47,7 +47,9 @@ class ListServer(Server):
                         raise TooManyProductsFoundError('Too many products.')
             literki = []
             suma = 0
-
+        if len(products_unsorted) == 0:
+            products_unsorted = []
+            return products_unsorted
         n = len(products_unsorted)
         x: int = 0
         while n > 1:
@@ -91,7 +93,9 @@ class MapServer(Server):
                         raise TooManyProductsFoundError('Too many products.')
             s = 0
             pom = []
-
+        if len(sort1) == 0:
+            sort1 = []
+            return sort1
         n = len(sort1)
         x: int = 0
         while n > 1:
