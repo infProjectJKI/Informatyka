@@ -1,0 +1,32 @@
+#include <iostream>
+#include <deque>
+
+class IPackageQueue:public IPackageStockpile{
+public:
+    QueueType getType();
+    Package eraseElement();
+private:
+
+};
+
+class PackageQueue:IPackageQueue{
+public:
+    PackageQueue(QueueType typesOfQueue)
+    {
+        _typesOfQueue = typesOfQueue
+    }
+    QueueType getType(){
+        return _typesOfQueue;
+    }
+
+private:
+   QueueType _typesOfQueue;
+};
+
+
+
+
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}
