@@ -22,11 +22,11 @@ public:
         return _typesOfQueue;
     }
     Package eraseElement(){
-        if(_typesOfQueue =PackageQueueType::FIFO )
+        if(_typesOfQueue == PackageQueueType::FIFO )
         {
             return (Package _queue.back());
         }
-        else if(_typesOfQueue = PackageQueueType::LIFO)
+        else if(_typesOfQueue == PackageQueueType::LIFO)
         {
             return (Package _queue.front());
         }
